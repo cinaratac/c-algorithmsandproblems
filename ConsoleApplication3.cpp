@@ -17,7 +17,7 @@ int main() {
 
 	}
 	dosya.close();//dosya kapatıldı
-	for (const string& s : satirlar) {
+	for (const string& s : satirlar) {//dışardan ulaşılabilir ama değiştirelemez bir s nesnesi yaratıp bunu satırlar vectörüne sahil et
 		cout << s << endl;
 	}
 }
