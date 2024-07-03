@@ -1,4 +1,4 @@
-﻿#include<iostream>
+#include<iostream>
 #include<fstream>
 #include<vector>
 #include<string>
@@ -11,7 +11,7 @@ public:
 	string ad;
 	string telefon;
 	string email;
-	};
+};
 vector<Kişi> adres_defteri;
 
 void  dosyadan_oku() {
@@ -30,11 +30,15 @@ void  dosyadan_oku() {
 		adres_defteri.push_back(kişi);
 	}
 	dosya.close();
-}
+}	
 void dosyaya_yaz() {
 	ofstream dosya("adres_defteri.txt");
+	if (!dosya) {
+		cout << "Dosya yazılamadı" << endl;
+		return;
+	}
 	for (const auto& kişi : adres_defteri) {
-		cout << kişi.ad << "," << kişi.telefon << "," << kişi.email << endl;
+		dosya << kişi.ad << "," << kişi.telefon << "," << kişi.email << endl;
 	}
 	dosya.close();
 }
@@ -50,8 +54,12 @@ void kisi_ekle() {
 	getline(cin, yeni_kişi.email);
 	adres_defteri.push_back(yeni_kişi);
 	dosyaya_yaz();
-	}
+}
 void kisileri_goruntule() {
+	if (adres_defteri.empty()) {
+		cout << "Adres defteri boş." << endl;
+		return;
+	}
 	for (size_t i = 0; i < adres_defteri.size(); i++) {
 		cout << i + 1 << ". Ad: " << adres_defteri[i].ad << ", Telefon: " << adres_defteri[i].telefon << ", E-posta: " << adres_defteri[i].email << endl;
 	}
@@ -77,7 +85,7 @@ void kisileri_düzenle() {
 		if (!yeni_telefon.empty()) {
 			adres_defteri[numara - 1].telefon = yeni_telefon;
 		}
-		 
+
 		cout << "Yeni email(Boş bırakmak için sadece Enter'a basın): " << endl;
 		cin.ignore();
 		string yeni_email;
@@ -92,6 +100,7 @@ void kisileri_düzenle() {
 	}
 }
 int main() {
+	dosyadan_oku();
 	while (true) {
 		cout << "\nAdres Defteri Menüsü:\n";
 		cout << "1. Kişi Ekle\n";
@@ -112,9 +121,9 @@ int main() {
 			kisileri_düzenle();
 			break;
 		case 4:
-				return 0;
-			default:
-				cout << "Geçersiz seçim lütfne tekrar deneyin." << endl;
+			return 0;
+		default:
+			cout << "Geçersiz seçim lütfne tekrar deneyin." << endl;
 
 		}
 	}
