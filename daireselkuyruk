@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+int front=0;
+int rear=0;
+const int Max=6;
+int queue1[Max];
+
+void insertion(){
+    if((rear + 1) % Max == front){
+        cout<<"Queue is full"<<endl;
+    }
+    else{
+        cout<<"Enter number "<<rear+1<<":"<<endl;
+        cin>>queue1[rear];
+        rear=(rear+1) % Max;
+    }
+}
+void deletion(){
+    if(rear==front){
+        cout<<"Queue is empty"<<endl;
+    }
+    else{
+        cout<<"Deleted eleman is:"<<queue1[front]<<endl;
+        front=(front+1)% Max;
+    }
+}
+    void display(){
+        if(rear==front){
+            cout<<"Queue is empty"<<endl;
+        }
+        else{
+            int i=front;
+            while(i!=rear){
+           cout<<queue1[i]<<endl;
+                i=(i+1)%Max;
+            }
+        }
+    }
+    int main() {
+        cout << "------------- Insertion ---------------------\n";
+        for (int i = 0; i < Max; i++) {
+            insertion();  // Kuyruğa 5 eleman ekle
+        }
+
+        cout << "\n----------- Display queue elements -----------\n";
+        display();  // Kuyruğun elemanlarını görüntüle
+
+        cout << "\n----------- Delete ---------------------------\n";
+        deletion();  // İlk elemanı sil
+        deletion();  // İkinci elemanı sil
+
+        cout << "\n----------- Display queue elements -----------\n";
+        display();  // Kuyruğun elemanlarını tekrar görüntüle
+
+        cout << "\n----------- Show front & rear indexes --------\n";
+        cout << "Front index: " << front << ", Rear index: " << rear << endl;
+        
+
+        return 0;
+    }
