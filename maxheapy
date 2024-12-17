@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void MaxHeapify(vector<int> &arr, int n, int i){
+    int largest=i;
+    int left=i*2+1;
+    int right=i*2+2;
+    
+    if(left<n&&arr[left]>arr[largest]){
+        largest=left;
+    }
+    if(right<n&&arr[right]>arr[largest]){
+        largest=right;
+    }
+    if(largest!=i){
+        swap(arr[i],arr[largest]);
+        MaxHeapify(arr, n, largest);
+       }
+    
+}
+void buildMaxHeap(vector<int> &arr){
+    int n=arr.size();
+    for(int i=n/2-1;i>=0;i--){
+        MaxHeapify(arr, n, i);
+    }
+}
+void printArray(const vector<int> &arr){
+    for(int i=0;i<arr.size();i++){
+        cout<<arr[i]<<" ";
+    }
+    cout<<endl;
+}
+int main(){
+    vector<int> arr={3, 5, 8, 10, 17, 11, 13, 19, 22, 24, 29};
+    cout<<"Orjinal dizi: ";
+    printArray(arr);
+    buildMaxHeap(arr);
+    cout<<"Max Heap: ";
+    printArray(arr);
+}
