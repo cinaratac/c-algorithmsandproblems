@@ -1,0 +1,69 @@
+
+#include <iostream>
+using namespace std;
+
+// İkili ağaç düğüm yapısı
+struct Node {
+    int data;          // Düğümdeki veri
+    Node* left;        // Sol alt düğüm
+    Node* right;       // Sağ alt düğüm
+};
+
+// Yeni bir düğüm oluşturma fonksiyonu
+Node* newNode(int data) {
+    Node* node = new Node();  // Bellekte yeni bir düğüm ayır
+    node->data = data;        // Düğümün verisini ata
+    node->left = nullptr;     // Sol alt düğümü NULL yap
+    node->right = nullptr;    // Sağ alt düğümü NULL yap
+    return node;
+}
+
+// Inorder Traversal (Sol -> Kök -> Sağ)
+void inorderTraversal(Node* node) {
+    if (node == nullptr) return;         // Düğüm NULL ise geri dön
+    inorderTraversal(node->left);        // Sol alt ağacı gez
+    cout << node->data << " ";           // Kök düğümü yazdır
+    inorderTraversal(node->right);       // Sağ alt ağacı gez
+}
+
+// Preorder Traversal (Kök -> Sol -> Sağ)
+void preorderTraversal(Node* node) {
+    if (node == nullptr) return;         // Düğüm NULL ise geri dön
+    cout << node->data << " ";           // Kök düğümü yazdır
+    preorderTraversal(node->left);       // Sol alt ağacı gez
+    preorderTraversal(node->right);      // Sağ alt ağacı gez
+}
+
+// Postorder Traversal (Sol -> Sağ -> Kök)
+void postorderTraversal(Node* node) {
+    if (node == nullptr) return;         // Düğüm NULL ise geri dön
+    postorderTraversal(node->left);      // Sol alt ağacı gez
+    postorderTraversal(node->right);     // Sağ alt ağacı gez
+    cout << node->data << " ";           // Kök düğümü yazdır
+}
+
+int main() {
+    // Ağaç yapısını oluşturuyoruz
+    Node* root = newNode(1);          // Kök düğüm: 1
+    root->left = newNode(2);          // Kökün sol çocuğu: 2
+    root->right = newNode(3);         // Kökün sağ çocuğu: 3
+    root->left->right = newNode(5);   // 2 düğümünün sağ çocuğu: 5
+    root->left->left = newNode(4);    // 2 düğümün sol çocuğu: 4
+    // Inorder Traversal
+    cout << "Inorder Traversal: ";
+    inorderTraversal(root);           // Inorder gezintiyi çağır
+    cout << endl;
+
+    // Preorder Traversal
+    cout << "Preorder Traversal: ";
+    preorderTraversal(root);          // Preorder gezintiyi çağır
+    cout << endl;
+
+    // Postorder Traversal
+    cout << "Postorder Traversal: ";
+    postorderTraversal(root);         // Postorder gezintiyi çağır
+    cout << endl;
+
+    return 0;
+}
+
