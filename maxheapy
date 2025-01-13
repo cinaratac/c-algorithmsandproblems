@@ -2,40 +2,49 @@
 #include <vector>
 using namespace std;
 
-void MaxHeapify(vector<int> &arr, int n, int i){
-    int largest=i;
-    int left=i*2+1;
+void MaxHeapfy(vector <int> &arr, int n, int i){
+    int longest=i;
     int right=i*2+2;
-    
-    if(left<n&&arr[left]>arr[largest]){
-        largest=left;
+    int left=i*2+1;
+    if(n>right&&arr[longest]<arr[right]){
+        longest=right;
     }
-    if(right<n&&arr[right]>arr[largest]){
-        largest=right;
+    if(n>left&&arr[longest]<arr[left]){
+        longest=left;
     }
-    if(largest!=i){
-        swap(arr[i],arr[largest]);
-        MaxHeapify(arr, n, largest);
-       }
+    if(arr[longest]!=arr[i]){
+        swap(arr[longest], arr[i]);
+        MaxHeapfy(arr, n, longest);
+    }
     
 }
-void buildMaxHeap(vector<int> &arr){
+void heapfy(vector <int> &arr){
     int n=arr.size();
     for(int i=n/2-1;i>=0;i--){
-        MaxHeapify(arr, n, i);
+        MaxHeapfy(arr, n, i);
+    }
+    
+}
+void heapsort(vector <int> &arr){
+    int n=arr.size();
+    heapfy(arr);
+    for(int i=n-1;i>=0;i--){
+        swap(arr[0], arr[i]);
+        MaxHeapfy(arr, i, 0);
     }
 }
-void printArray(const vector<int> &arr){
+
+void print(vector<int> &arr){
     for(int i=0;i<arr.size();i++){
-        cout<<arr[i]<<" ";
-    }
-    cout<<endl;
+    cout<<arr[i]<<" ";
 }
-int main(){
-    vector<int> arr={3, 5, 8, 10, 17, 11, 13, 19, 22, 24, 29};
-    cout<<"Orjinal dizi: ";
-    printArray(arr);
-    buildMaxHeap(arr);
-    cout<<"Max Heap: ";
-    printArray(arr);
+    cout<<endl;
+    }
+    int main(){
+    vector<int> arr={24,1,54,8,15,8,2,42,41};
+    cout<<"Before heapfy and heapsort: ";
+    print(arr);
+        heapsort(arr);
+    cout<<"After heapfy and heapsort: ";
+    print(arr);
 }
