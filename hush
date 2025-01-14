@@ -1,0 +1,77 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+#define size 5  // Hash tablosunun boyutu, genellikle asal sayı olmalı
+int arr[size];
+
+// Başlangıçta tüm hücreleri -1 ile işaretle (boş alan)
+void init() {
+    for (int i = 0; i < size; i++) {
+        arr[i] = -1;  // -1 boş alanı işaret eder
+    }
+}
+
+// Veri ekleme fonksiyonu
+void insert(int value) {
+    int key = abs(value % size);  // Hash fonksiyonu (modüler)
+    if (arr[key] == -1) {
+        arr[key] = value;  // Eğer hücre boşsa, değeri yerleştir
+        cout << "\nNumber " << value << " inserted at index " << key;
+    } else {
+        cout << "\nCollision => index " << key << " already contains " << arr[key];
+        cout << " Unable to insert number: " << value;
+    }
+}
+
+// Veri silme fonksiyonu
+void Delete(int value) {
+    int key = abs(value % size);
+    if (arr[key] == value) {
+        arr[key] = -1;  // Değeri bulduğunda, o hücreyi boşalt
+        cout << "\nNumber " << value << " deleted from index " << key;
+    } else {
+        cout << "\nNumber " << value << " not present in the hash table";
+    }
+}
+
+// Veri arama fonksiyonu
+void search(int value) {
+    int key = abs(value % size);
+    if (arr[key] == value) {
+        cout << "\nNumber " << value << " is in index " << key;
+    } else {
+        cout << "\nNumber " << value << " is not in the hash table";
+    }
+}
+
+// Hash tablosunu yazdırma fonksiyonu
+void print() {
+    cout << "\nHash Table: ";
+    for (int i = 0; i < size; i++) {
+        cout << "\t" << arr[i];
+    }
+    cout << endl;
+}
+
+int main() {
+    init();  // Hash tablosunu başlat
+
+    insert(10);  // 10'u ekle
+    insert(20);  // 20'yi ekle
+    insert(30);  // 30'u ekle
+    insert(40);  // 40'ı ekle
+    insert(50);  // 50'yi ekle
+
+    print();  // Tabloyu göster
+
+    // Arama işlemi
+    search(30);  // 30'u ara
+    search(100); // 100'ü ara
+
+    // Silme işlemi
+    Delete(30);  // 30'u sil
+    Delete(100); // 100'ü sil (bulunamayacak)
+
+    print();  // Silme sonrası tabloyu göster
+}
