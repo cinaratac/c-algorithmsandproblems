@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+
+char tree[10];
+int root(char key){
+    if(tree[0]!='\0'){
+        cout<<"Tree already exist"<<endl;
+    }
+    else
+        tree[0]=key;
+    return 0;
+}
+int left_set(char key, int parent){
+    if(tree[parent]=='\0'){
+        cout<<"Parent not exist"<<endl;
+    }
+    else
+        tree[parent*2+1]=key;
+    return 0;
+    }
+
+int right_set(char key, int parent){
+    if(tree[parent]=='\0'){
+        cout<<"Parent not exist"<<endl;
+    }
+    else
+        tree[parent*2+2]=key;
+    return 0;
+}
+
+void print_tree(){
+    int n=sizeof(tree);
+    for(int i=0;i<=n;i++){
+        if(tree[i]=='\0'){
+            cout<<" ";
+        }
+        else
+            cout<<tree[i];
+    }
+}
+
+
+int main(){
+root('A');
+left_set('B', 0);
+right_set('C', 0);
+left_set('D', 1);
+right_set('E', 1); //Index B= 2*0 + 1= 1, index C= 2*0 +2 = 2
+right_set('F', 2);
+left_set('G', 3);
+right_set('H', 3);
+//right_set('K', 5); //Can't set child at 12, no parent found
+print_tree();
+return 0;
+}
